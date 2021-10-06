@@ -5,24 +5,11 @@
         "node": true
     },
     "extends": [
-        "plugin:jest/recommended",
-        "plugin:react/recommended",
-        "airbnb"
+        "airbnb-base"
     ],
     "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
         "ecmaVersion": 12
     },
-    "plugins": [
-        "react",
-        "jest"
-    ],
     "rules": {
-        "no-console": "off",
-        "semi": ["error", "never"],
-        "indent": ["error", "tab"],
-        "no-tabs": 0
     }
 }
