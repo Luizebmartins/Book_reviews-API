@@ -1,42 +1,43 @@
 
-CREATE TABLE usuario (
+CREATE TABLE users (
     id serial PRIMARY KEY,
     login varchar(50) NOT NULL,
-    senha varchar(100) NOT NULL,
-    nome text NOT NULL,
-    email varchar(100) UNIQUE NOT NULL
+    password text NOT NULL,
+    name text NOT NULL,
+    email varchar(100) UNIQUE NOT NULL,
+    admin boolean DEFAULT 'false'
 );
 
-CREATE TABLE resenha (
+CREATE TABLE reviews (
     id serial PRIMARY KEY,
-    data timestamp default now(),
-    titulo text NOT NULL,
-    texto text NOT NULL,
+    date timestamp default now(),
+    title text NOT NULL,
+    content text NOT NULL,
     count_likes integer DEFAULT 0,
     count_dislikes integer DEFAULT 0,
-    nota_livro float NOT NULL,
-    id_usuario integer REFERENCES usuario(id) NOT NULL
+    rating float NOT NULL,
+    id_user integer REFERENCES users(id) NOT NULL
 );
 
-CREATE TABLE livro (
+CREATE TABLE books (
     id serial PRIMARY KEY,
-    titulo text NOT NULL,
-    publicadora varchar(255) NOT NULL,
-    data_publicacao date NOT NULL,
-    nota float NOT NULL,
-    paginas integer NOT NULL,
-    descricao text NOT NULL,
+    title text NOT NULL,
+    publisher varchar(255) NOT NULL,
+    published_Date date NOT NULL,
+    rating float NOT NULL,
+    page_count integer NOT NULL,
+    description text NOT NULL,
     isbn text UNIQUE NOT NULL
 );
 
-CREATE TABLE autor (
+CREATE TABLE authors (
     id serial PRIMARY KEY,
-    nome text UNIQUE NOT NULL
+    name text UNIQUE NOT NULL
 );
 
-CREATE TABLE escrito_por (
+CREATE TABLE write_by (
     id serial PRIMARY KEY,
-    id_autor integer REFERENCES autor(id) NOT NULL,
-    id_livro integer REFERENCES livro(id) NOT NULL,
-    UNIQUE(id_autor, id_livro)
+    id_author integer REFERENCES authors(id) NOT NULL,
+    id_book integer REFERENCES books(id) NOT NULL,
+    UNIQUE(id_author, id_book)
 );

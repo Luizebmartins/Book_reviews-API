@@ -11,5 +11,9 @@
         "ecmaVersion": 12
     },
     "rules": {
+        "no-console": "off",
+        "semi": ["error", "never"],
+        "indent": ["error", "tab"],
+        "no-tabs": 0
     }
 }
