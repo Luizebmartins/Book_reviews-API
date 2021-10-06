@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 const connection = require('../infra/database')
 
-const user = connection.define('user', {
+const user = connection.define('users', {
 	id: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
@@ -10,6 +10,7 @@ const user = connection.define('user', {
 	login: {
 		type: DataTypes.STRING(50),
 		allowNull: false,
+		unique: true,
 	},
 	password: {
 		type: DataTypes.TEXT,
@@ -22,6 +23,7 @@ const user = connection.define('user', {
 	email: {
 		type: DataTypes.STRING(100),
 		allowNull: false,
+		unique: true,
 	},
 	admin: {
 		type: DataTypes.BOOLEAN,
@@ -36,5 +38,4 @@ const user = connection.define('user', {
 (async () => {
 	await user.sync()
 	module.exports = user
-	console.log('sucessful connect')
 })()
