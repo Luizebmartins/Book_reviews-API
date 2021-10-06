@@ -1,0 +1,28 @@
+{
+    "env": {
+        "commonjs": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "plugin:jest/recommended",
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12
+    },
+    "plugins": [
+        "react",
+        "jest"
+    ],
+    "rules": {
+        "no-console": "off",
+        "semi": ["error", "never"],
+        "indent": ["error", "tab"],
+        "no-tabs": 0
+    }
+}
