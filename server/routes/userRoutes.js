@@ -32,7 +32,7 @@ router.put('/users/:id', async (req, res, next) => {
 	}
 })
 
-router.delete('/user/:id', async (req, res, next) => {
+router.delete('/users/:id', async (req, res, next) => {
 	try {
 		await userService.deleteUser(req.params.id)
 		res.status(200).end()

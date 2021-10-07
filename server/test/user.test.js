@@ -119,20 +119,26 @@ describe('Camada de testes', () => {
 		await userService.deleteUser(userID2)
 	})
 
-	// test('should delete a user', async () => {
-	// 	const data = {
-	// 		password: 'secret',
-	// 		name: 'Luiz',
-	// 		email: 'luizebmartins@gmail.com',
-	// 	}
+	test('should delete a user', async () => {
+		const data = {
+			password: 'secret',
+			name: 'Luiz',
+			email: 'luizebmartins@gmail.com',
+		}
 
-	// 	const response1 = await request('http://localhost:3000/users', 'post', data)
-	// 	const user = response1.data
+		const response1 = await request('http://localhost:3000/users', 'post', data)
+		const user = response1.data
+		const response2 = await request(`http://localhost:3000/users/${user.id}`, 'delete')
+		expect(response2.status).toBe(200)
 
-	// 	const response2 = await request(`http://localhost:3000/users/${user.id}`, 'delete')
-	// 	expect(response2.status).toBe(200)
+		const response3 = await request(`http://localhost:3000/users/${user.id}`, 'get')
+		expect(response3.status).toBe(404)
+	})
 
-	// 	const response3 = await request(`http://localhost:3000/users/${user.id}`, 'get')
-	// 	expect(response3.status).toBe(404)
-	// })
+	test('should not delete a user', async () => {
+		const userID = 10000
+
+		const response = await request(`http://localhost:3000/users/${userID}`, 'delete')
+		expect(response.status).toBe(404)
+	})
 })
