@@ -7,11 +7,6 @@ const user = connection.define('users', {
 		primaryKey: true,
 		autoIncrement: true,
 	},
-	login: {
-		type: DataTypes.STRING(50),
-		allowNull: false,
-		unique: true,
-	},
 	password: {
 		type: DataTypes.TEXT,
 		allowNull: false,
@@ -33,9 +28,8 @@ const user = connection.define('users', {
 }, {
 	tableName: 'users',
 	timestamps: false,
-});
+})
 
-(async () => {
-	await user.sync()
-	module.exports = user
-})()
+user.sync()
+
+module.exports = user
