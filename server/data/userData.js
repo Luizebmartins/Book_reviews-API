@@ -12,6 +12,10 @@ exports.getUserByEmail = function (email) {
 	return user.findOne({ where: { email } })
 }
 
+exports.putUser = function (id, newData) {
+	return user.update(newData, { where: { id } })
+}
+
 exports.deleteUser = function (id) {
 	return user.destroy({ where: { id } })
 }

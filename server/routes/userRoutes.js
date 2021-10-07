@@ -18,7 +18,18 @@ router.get('/users/:id', async (req, res) => {
 		const user = await userService.getUser(req.params.id)
 		res.status(200).json(user)
 	} catch (e) {
-		res.status(404).send(e.message)
+		res.status(204).send(e.message)
+	}
+})
+
+router.put('/users/:id', async (req, res) => {
+	const newData = req.body
+	try {
+		const user = await userService.putUser(req.params.id, newData)
+		res.status(200).json(user)
+	} catch (e) {
+		if (e.message === 'User not found') res.status(204).send(e.message)
+		else if (e.message === 'Email already exist') res.status(409).send(e.message)
 	}
 })
 

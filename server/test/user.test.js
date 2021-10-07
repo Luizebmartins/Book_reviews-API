@@ -23,7 +23,7 @@ describe('Camada de testes', () => {
 		const data = {
 			password: 'secret',
 			name: 'Luiz',
-			email: 'luizebmartons@gmail.com',
+			email: 'luizebmartins@gmail.com',
 		}
 		const response1 = await request('http://localhost:3000/users', 'post', data)
 		const response2 = await request('http://localhost:3000/users', 'post', data)
@@ -37,7 +37,7 @@ describe('Camada de testes', () => {
 		const data = {
 			password: 'secret',
 			name: 'Luiz',
-			email: 'luizebmartons@gmail.com',
+			email: 'luizebmartins@gmail.com',
 		}
 		const response1 = await request('http://localhost:3000/users', 'post', data)
 		const newUser = response1.data
@@ -49,12 +49,74 @@ describe('Camada de testes', () => {
 		await userService.deleteUser(user.id)
 	})
 
-	test.only('should not get a user', async () => {
+	test('should not get a user', async () => {
 		const data = {
 			id: 1000,
 		}
 		const response = await request(`http://localhost:3000/users/${data.id}`, 'get')
-		expect(response.data).toBe('user not found')
-		expect(response.status).toBe(404)
+
+		expect(response.status).toBe(204)
+	})
+
+	test('should update a user', async () => {
+		const data = {
+			password: 'secret',
+			name: 'Luiz',
+			email: 'luizebmartins@gmail.com',
+		}
+
+		const response1 = await request('http://localhost:3000/users', 'post', data)
+		const userID = response1.data.id
+
+		data.name = 'luiz eduardo'
+		data.email = 'emailteste@gmail.com'
+		const response2 = await request(`http://localhost:3000/users/${userID}`, 'put', data)
+
+		const response3 = await request(`http://localhost:3000/users/${userID}`, 'get')
+		const updatedUser = response3.data
+
+		expect(updatedUser.name).toBe(data.name)
+		expect(updatedUser.email).toBe(data.email)
+		expect(response2.status).toBe(200)
+
+		await userService.deleteUser(userID)
+	})
+
+	test('should not update a user', async () => {
+		const data = {
+			name: 'teste',
+		}
+
+		const idUser = 10000
+		const response = await request(`http://localhost:3000/users/${idUser}`, 'put', data)
+
+		expect(response.status).toBe(204)
+	})
+
+	test('should not update a user with conflicting email', async () => {
+		jest.setTimeout(10000)
+		const data1 = {
+			password: 'secret',
+			name: 'Luiz',
+			email: 'luizebmartins@gmail.com',
+		}
+		const data2 = {
+			password: 'secret',
+			name: 'carlos',
+			email: 'teste@gmail.com',
+		}
+
+		const response1 = await request('http://localhost:3000/users', 'post', data1)
+		const userID1 = response1.data.id
+
+		const response2 = await request('http://localhost:3000/users', 'post', data2)
+		const userID2 = response2.data.id
+
+		data2.email = 'luizebmartins@gmail.com'
+		const response3 = await request(`http://localhost:3000/users/${userID2}`, 'put', data2)
+		expect(response3.status).toBe(409)
+
+		await userService.deleteUser(userID1)
+		await userService.deleteUser(userID2)
 	})
 })
