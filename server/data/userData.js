@@ -7,3 +7,7 @@ exports.getUserByEmail = function (email) {
 exports.saveUser = function (newUser) {
 	return user.create(newUser, { raw: true })
 }
+
+exports.deleteUser = function (id) {
+	return user.destroy({ where: { id } })
+}

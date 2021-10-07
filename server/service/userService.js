@@ -5,3 +5,7 @@ exports.saveUser = async function (newUser) {
 	if (existingUser) throw new Error('User already exist')
 	return userData.saveUser(newUser)
 }
+
+exports.deleteUser = function (id) {
+	return userData.deleteUser(id)
+}
