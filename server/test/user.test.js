@@ -55,7 +55,7 @@ describe('Camada de testes', () => {
 		}
 		const response = await request(`http://localhost:3000/users/${data.id}`, 'get')
 
-		expect(response.status).toBe(204)
+		expect(response.status).toBe(404)
 	})
 
 	test('should update a user', async () => {
@@ -90,11 +90,10 @@ describe('Camada de testes', () => {
 		const idUser = 10000
 		const response = await request(`http://localhost:3000/users/${idUser}`, 'put', data)
 
-		expect(response.status).toBe(204)
+		expect(response.status).toBe(404)
 	})
 
 	test('should not update a user with conflicting email', async () => {
-		jest.setTimeout(10000)
 		const data1 = {
 			password: 'secret',
 			name: 'Luiz',
@@ -119,4 +118,21 @@ describe('Camada de testes', () => {
 		await userService.deleteUser(userID1)
 		await userService.deleteUser(userID2)
 	})
+
+	// test('should delete a user', async () => {
+	// 	const data = {
+	// 		password: 'secret',
+	// 		name: 'Luiz',
+	// 		email: 'luizebmartins@gmail.com',
+	// 	}
+
+	// 	const response1 = await request('http://localhost:3000/users', 'post', data)
+	// 	const user = response1.data
+
+	// 	const response2 = await request(`http://localhost:3000/users/${user.id}`, 'delete')
+	// 	expect(response2.status).toBe(200)
+
+	// 	const response3 = await request(`http://localhost:3000/users/${user.id}`, 'get')
+	// 	expect(response3.status).toBe(404)
+	// })
 })
