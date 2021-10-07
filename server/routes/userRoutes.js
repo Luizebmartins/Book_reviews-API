@@ -13,4 +13,13 @@ router.post('/users', async (req, res) => {
 	}
 })
 
+router.get('/users/:id', async (req, res) => {
+	try {
+		const user = await userService.getUser(req.params.id)
+		res.status(200).json(user)
+	} catch (e) {
+		res.status(404).send(e.message)
+	}
+})
+
 module.exports = router

@@ -6,6 +6,12 @@ exports.saveUser = async function (newUser) {
 	return userData.saveUser(newUser)
 }
 
+exports.getUser = async function (id) {
+	const user = await userData.getUser(id)
+	if (!user) throw new Error('user not found')
+	return user
+}
+
 exports.deleteUser = function (id) {
 	return userData.deleteUser(id)
 }

@@ -1,5 +1,5 @@
 const axios = require('axios')
-const userData = require('../data/userData')
+const userService = require('../service/userService')
 
 const request = (url, method, data) => axios({
 	url, method, data, validateStatus: false,
@@ -16,7 +16,7 @@ describe('Camada de testes', () => {
 		const user = response.data
 		expect(user.email).toBe(data.email)
 		expect(response.status).toBe(201)
-		await userData.deleteUser(user.id)
+		await userService.deleteUser(user.id)
 	})
 
 	test('should not save a duplicate user', async () => {
@@ -30,6 +30,31 @@ describe('Camada de testes', () => {
 		const user = response1.data
 
 		expect(response2.status).toBe(409)
-		await userData.deleteUser(user.id)
+		await userService.deleteUser(user.id)
+	})
+
+	test('should get a user', async () => {
+		const data = {
+			password: 'secret',
+			name: 'Luiz',
+			email: 'luizebmartons@gmail.com',
+		}
+		const response1 = await request('http://localhost:3000/users', 'post', data)
+		const newUser = response1.data
+
+		const response2 = await request(`http://localhost:3000/users/${newUser.id}`, 'get')
+		const user = response2.data
+		expect(user.email).toBe(data.email)
+		expect(response2.status).toBe(200)
+		await userService.deleteUser(user.id)
+	})
+
+	test.only('should not get a user', async () => {
+		const data = {
+			id: 1000,
+		}
+		const response = await request(`http://localhost:3000/users/${data.id}`, 'get')
+		expect(response.data).toBe('user not found')
+		expect(response.status).toBe(404)
 	})
 })
