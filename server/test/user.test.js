@@ -10,7 +10,7 @@ describe('Camada de testes', () => {
 		const data = {
 			password: 'secret',
 			name: 'Luiz',
-			email: 'luizebmartons@gmail.com',
+			email: 'luizebmartins@gmail.com',
 		}
 		const response = await request('http://localhost:3000/users', 'post', data)
 		const user = response.data

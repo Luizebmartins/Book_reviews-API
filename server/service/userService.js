@@ -1,8 +1,14 @@
+const bcrypt = require('bcrypt')
 const userData = require('../data/userData')
 
-exports.saveUser = async function (newUser) {
-	const existingUser = await userData.getUserByEmail(newUser.email)
+exports.saveUser = async function (data) {
+	const existingUser = await userData.getUserByEmail(data.email)
 	if (existingUser) throw new Error('User already exist')
+
+	const newUser = data
+	const passwordHash = await bcrypt.hash(newUser.password, 8)
+	newUser.password = passwordHash
+
 	return userData.saveUser(newUser)
 }
 

@@ -4,9 +4,9 @@ const userService = require('../service/userService')
 const router = express.Router()
 
 router.post('/users', async (req, res, next) => {
-	const user = req.body
+	const data = req.body
 	try {
-		const newUser = await userService.saveUser(user)
+		const newUser = await userService.saveUser(data)
 		res.status(201).json(newUser)
 	} catch (e) {
 		next(e)
