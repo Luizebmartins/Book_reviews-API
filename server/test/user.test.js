@@ -141,4 +141,21 @@ describe('Camada de testes', () => {
 		const response = await request(`http://localhost:3000/users/${userID}`, 'delete')
 		expect(response.status).toBe(404)
 	})
+
+	test.only('should athenticate user', async () => {
+		const data = {
+			password: 'secret',
+			name: 'Luiz',
+			email: 'luizebmartins@gmail.com',
+		}
+		const response1 = await request('http://localhost:3000/users', 'post', data)
+
+		const response = await request('http://localhost:3000/users/login', 'post', { email: data.email, password: data.password })
+		const dataUser = response.data.user
+
+		expect(dataUser.id).toBe(response1.data.id)
+		expect(response.status).toBe(200)
+
+		await userService.deleteUser(response1.data.id)
+	})
 })
