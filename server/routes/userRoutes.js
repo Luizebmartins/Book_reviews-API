@@ -1,5 +1,6 @@
 const express = require('express')
 const userService = require('../service/userService')
+const ensureAuthenticated = require('../middlewares/ensureAuthenticated')
 
 const router = express.Router()
 
@@ -13,7 +14,7 @@ router.post('/users', async (req, res, next) => {
 	}
 })
 
-router.get('/users/:id', async (req, res, next) => {
+router.get('/users/:id', ensureAuthenticated, async (req, res, next) => {
 	try {
 		const user = await userService.getUser(req.params.id)
 		res.status(200).json(user)

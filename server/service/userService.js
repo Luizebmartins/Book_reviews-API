@@ -43,19 +43,16 @@ exports.loginUser = async function (data) {
 	const existingUser = await userData.getUserByEmail(data.email)
 	if (!existingUser) throw new Error('Autheticated failed')
 
-	const user = { id: existingUser.id, email: existingUser.email }
-
 	const passwordMatch = await bcrypt.compare(data.password, existingUser.password)
 	if (!passwordMatch) throw new Error('Autheticated failed')
 
-	if (existingUser.admin === false) {
-		const token = jwt.sign({}, process.env.JWT_KEY, {
-			expiresIn: '1d',
-		})
-		return { user, token }
-	}
-	const token = jwt.sign({}, process.env.JWT_KEY_ADMIN, {
+	const token = jwt.sign({
+		id_user: existingUser.id,
+		email: existingUser.email,
+		admin: existingUser.admin,
+	}, process.env.JWT_KEY, {
 		expiresIn: '1d',
 	})
-	return { user, token }
+
+	return token
 }
