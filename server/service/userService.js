@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const userData = require('../data/userData')
+require('dotenv').config()
 
 exports.saveUser = async function (data) {
 	const existingUser = await userData.getUserByEmail(data.email)
@@ -42,14 +43,19 @@ exports.loginUser = async function (data) {
 	const existingUser = await userData.getUserByEmail(data.email)
 	if (!existingUser) throw new Error('Autheticated failed')
 
+	const user = { id: existingUser.id, email: existingUser.email }
+
 	const passwordMatch = await bcrypt.compare(data.password, existingUser.password)
 	if (!passwordMatch) throw new Error('Autheticated failed')
 
-	const token = jwt.sign({}, 'cbb5b40302212460356ea0fbf452d0cf', {
+	if (existingUser.admin === false) {
+		const token = jwt.sign({}, process.env.JWT_KEY, {
+			expiresIn: '1d',
+		})
+		return { user, token }
+	}
+	const token = jwt.sign({}, process.env.JWT_KEY_ADMIN, {
 		expiresIn: '1d',
 	})
-
-	const user = { id: existingUser.id, email: existingUser.email }
-
 	return { user, token }
 }

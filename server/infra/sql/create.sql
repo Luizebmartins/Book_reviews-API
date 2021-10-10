@@ -31,12 +31,8 @@ CREATE TABLE books (
 
 CREATE TABLE authors (
     id serial PRIMARY KEY,
-    name text UNIQUE NOT NULL
+    name text NOT NULL,
+    id_book integer REFERENCES books(id) NOT NULL,
+    UNIQUE(name, id_book)
 );
 
-CREATE TABLE write_by (
-    id serial PRIMARY KEY,
-    id_author integer REFERENCES authors(id) NOT NULL,
-    id_book integer REFERENCES books(id) NOT NULL,
-    UNIQUE(id_author, id_book)
-);

@@ -142,7 +142,7 @@ describe('Camada de testes', () => {
 		expect(response.status).toBe(404)
 	})
 
-	test.only('should athenticate user', async () => {
+	test('should athenticate user', async () => {
 		const data = {
 			password: 'secret',
 			name: 'Luiz',
