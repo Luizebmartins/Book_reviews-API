@@ -17,6 +17,7 @@
         "no-console": "off",
         "semi": ["error", "never"],
         "indent": ["error", "tab"],
-        "no-tabs": 0
+        "no-tabs": 0,
+        "eqeqeq": "off"
     }
 }

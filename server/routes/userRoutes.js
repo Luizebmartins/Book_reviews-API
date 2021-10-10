@@ -16,6 +16,7 @@ router.post('/users', async (req, res, next) => {
 
 router.get('/users/:id', ensureAuthenticated, async (req, res, next) => {
 	try {
+		if (req.usuario.id_user != req.params.id) throw new Error('Unauthorized')
 		const user = await userService.getUser(req.params.id)
 		res.status(200).json(user)
 	} catch (e) {
@@ -23,9 +24,10 @@ router.get('/users/:id', ensureAuthenticated, async (req, res, next) => {
 	}
 })
 
-router.put('/users/:id', async (req, res, next) => {
+router.put('/users/:id', ensureAuthenticated, async (req, res, next) => {
 	const newData = req.body
 	try {
+		if (req.usuario.id_user != req.params.id) throw new Error('Unauthorized')
 		await userService.putUser(req.params.id, newData)
 		res.status(200).end()
 	} catch (e) {
@@ -33,8 +35,9 @@ router.put('/users/:id', async (req, res, next) => {
 	}
 })
 
-router.delete('/users/:id', async (req, res, next) => {
+router.delete('/users/:id', ensureAuthenticated, async (req, res, next) => {
 	try {
+		if (req.usuario.id_user != req.params.id) throw new Error('Unauthorized')
 		await userService.deleteUser(req.params.id)
 		res.status(200).end()
 	} catch (e) {

@@ -1,11 +1,16 @@
 const axios = require('axios')
+const jwt = require('jsonwebtoken')
 const userService = require('../service/userService')
 
 const request = (url, method, data) => axios({
 	url, method, data, validateStatus: false,
 })
 
-describe('Camada de testes', () => {
+const requestAuthenticated = (url, method, data, token) => axios({
+	url, method, data, validateStatus: false, headers: { Authorization: `Bearer ${token}` },
+})
+
+describe('Camada de testes CRUD', () => {
 	test('should save a user', async () => {
 		const data = {
 			password: 'secret',
@@ -142,20 +147,55 @@ describe('Camada de testes', () => {
 		expect(response.status).toBe(404)
 	})
 
-	test('should athenticate user', async () => {
+	// teste acima não são mais válidos, adicionado necessidade de autentificação
+	test('should authenticate a user', async () => {
 		const data = {
 			password: 'secret',
 			name: 'Luiz',
 			email: 'luizebmartins@gmail.com',
 		}
-		const response1 = await request('http://localhost:3000/users', 'post', data)
+		const responseCreate = await request('http://localhost:3000/users', 'post', data)
 
-		const response = await request('http://localhost:3000/users/login', 'post', { email: data.email, password: data.password })
-		const dataUser = response.data.user
+		const responseLogin = await request('http://localhost:3000/users/login', 'post', { email: data.email, password: data.password })
+		const token = responseLogin.data
+		const decoded = jwt.verify(token, process.env.JWT_KEY)
 
-		expect(dataUser.id).toBe(response1.data.id)
-		expect(response.status).toBe(200)
+		expect(decoded.id_user).toBe(responseCreate.data.id)
+		expect(responseLogin.status).toBe(200)
 
-		await userService.deleteUser(response1.data.id)
+		await userService.deleteUser(responseCreate.data.id)
+	})
+
+	test('should get a authenticated user', async () => {
+		const data = {
+			password: 'secret',
+			name: 'Luiz',
+			email: 'luizebmartins@gmail.com',
+		}
+		const responseCreate = await request('http://localhost:3000/users', 'post', data)
+		const newUser = responseCreate.data
+		const responseLogin = await request('http://localhost:3000/users/login', 'post', { email: data.email, password: data.password })
+		const token = responseLogin.data
+
+		const responseGet = await requestAuthenticated(`http://localhost:3000/users/${newUser.id}`, 'get', {}, token)
+
+		const user = responseGet.data
+		expect(user.email).toBe(newUser.email)
+
+		await userService.deleteUser(user.id)
+	})
+
+	test('should not get a not authenticated user', async () => {
+		const data = {
+			password: 'secret',
+			name: 'Luiz',
+			email: 'luizebmartins@gmail.com',
+		}
+		const responseCreate = await request('http://localhost:3000/users', 'post', data)
+		const newUser = responseCreate.data
+
+		const responseGet = await request(`http://localhost:3000/users/${newUser.id}`, 'get')
+		expect(responseGet.status).toBe(401)
+		await userService.deleteUser(newUser.id)
 	})
 })
