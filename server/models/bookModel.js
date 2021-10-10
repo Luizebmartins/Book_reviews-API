@@ -37,12 +37,14 @@ const book = connection.define('books', {
 		unique: true,
 
 	},
+	image_Link: {
+		type: DataTypes.TEXT,
+	},
 }, {
 	tableName: 'users',
 	timestamps: false,
 })
 
 book.sync()
-console.log('conectado')
 
 module.exports = book
