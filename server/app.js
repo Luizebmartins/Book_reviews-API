@@ -15,6 +15,7 @@ app.use((error, req, res, next) => {
 	if (error.message === 'invalid token') return res.status(401).send(error.message)
 	if (error.message === 'Token missing') return res.status(401).send(error.message)
 	if (error.message === 'Book not found') return res.status(404).json(error.message)
+	if (error.message === 'Book already exist') return res.status(409).send(error.message)
 	return res.status(500).send(error.message)
 })
 

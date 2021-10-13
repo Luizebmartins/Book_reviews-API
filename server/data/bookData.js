@@ -3,8 +3,16 @@ const { Op } = require('sequelize')
 const author = require('../models/authorModel')
 const book = require('../models/bookModel')
 
+exports.saveBook = function (newBook) {
+	return book.create(newBook, { raw: true })
+}
+
 exports.getBook = function (id) {
 	return book.findOne({ where: { id } })
+}
+
+exports.getBookByIsbn = function (isbn) {
+	return book.findOne({ where: { isbn } })
 }
 
 exports.getBooks = async function (titleOrAuthor) {

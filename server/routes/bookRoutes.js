@@ -4,6 +4,16 @@ const bookService = require('../service/bookService')
 
 const router = express.Router()
 
+router.post('/books', async (req, res, next) => {
+	const data = req.body
+	try {
+		const newBook = await bookService.saveBook(data)
+		res.status(201).json(newBook)
+	} catch (e) {
+		next(e)
+	}
+})
+
 router.get('/books/:id', async (req, res, next) => {
 	try {
 		const book = await bookService.getBook(req.params.id)
