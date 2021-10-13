@@ -32,7 +32,7 @@ CREATE TABLE books (
 CREATE TABLE authors (
     id serial PRIMARY KEY,
     name text NOT NULL,
-    id_book integer REFERENCES books(id) NOT NULL,
+    id_book integer REFERENCES books(id) ON DELETE CASCADE NOT NULL,
     UNIQUE(name, id_book)
 );
 
