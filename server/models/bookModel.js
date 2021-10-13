@@ -15,7 +15,7 @@ const book = connection.define('books', {
 		type: DataTypes.STRING(255),
 		allowNull: false,
 	},
-	published_Date: {
+	published_date: {
 		type: DataTypes.DATE,
 		allowNull: false,
 	},
@@ -37,11 +37,11 @@ const book = connection.define('books', {
 		unique: true,
 
 	},
-	image_Link: {
+	image_link: {
 		type: DataTypes.TEXT,
 	},
 }, {
-	tableName: 'users',
+	tableName: 'books',
 	timestamps: false,
 })
 
