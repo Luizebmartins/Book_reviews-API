@@ -14,8 +14,9 @@ CREATE TABLE reviews (
     content text NOT NULL,
     count_likes integer DEFAULT 0,
     count_dislikes integer DEFAULT 0,
-    rating float NOT NULL,
-    id_user integer REFERENCES users(id) NOT NULL
+    rating float NOT NULL
+    id_book integer REFERENCES books(id) ON DELETE CASCADE NOT NULL,
+    id_user integer REFERENCES users(id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE books (
