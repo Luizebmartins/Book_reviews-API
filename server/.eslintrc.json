@@ -18,7 +18,8 @@
         "semi": ["error", "never"],
         "indent": ["error", "tab"],
         "no-tabs": 0,
-        "eqeqeq": "off"
+        "eqeqeq": "off",
+        "no-var": 0
         
     }
 }

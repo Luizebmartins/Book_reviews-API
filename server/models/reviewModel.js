@@ -18,7 +18,7 @@ const review = connection.define('reviews', {
 		type: DataTypes.TEXT,
 		allowNull: false,
 	},
-	context: {
+	content: {
 		type: DataTypes.TEXT,
 		allowNull: false,
 	},

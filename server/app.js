@@ -5,6 +5,7 @@ const app = express()
 app.use(express.json())
 app.use('/', require('./routes/userRoutes'))
 app.use('/', require('./routes/bookRoutes'))
+app.use('/', require('./routes/reviewRoutes'))
 
 app.use((error, req, res, next) => {
 	if (error.message === 'User already exist') return res.status(409).send(error.message)
