@@ -36,7 +36,7 @@ exports.getBook = async function (id) {
 }
 
 exports.getBooks = async function (titleOrAuthor) {
-	const books = await bookData.getBooks(titleOrAuthor)
+	var books = await bookData.getBooks(titleOrAuthor)
 	if (!books.length) throw new Error('Book not found')
 
 	for (let i = 0; i < books.length; i += 1) {
