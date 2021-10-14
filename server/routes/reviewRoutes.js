@@ -14,4 +14,22 @@ router.post('/reviews', async (req, res, next) => {
 	}
 })
 
+router.get('/reviews/:id', async (req, res, next) => {
+	try {
+		const review = await reviewService.getReview(req.params.id)
+		res.status(200).json(review)
+	} catch (e) {
+		next(e)
+	}
+})
+
+router.get('/reviews/:id/users', async (req, res, next) => {
+	try {
+		const usersReviews = await reviewService.getUserReviews(req.params.id)
+		res.status(200).json(usersReviews)
+	} catch (e) {
+		next(e)
+	}
+})
+
 module.exports = router
