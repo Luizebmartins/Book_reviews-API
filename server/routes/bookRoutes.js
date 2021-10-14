@@ -1,12 +1,13 @@
 const express = require('express')
-// const ensureAuthenticated = require('../middlewares/ensureAuthenticated')
+const ensureAuthenticated = require('../middlewares/ensureAuthenticated')
 const bookService = require('../service/bookService')
 
 const router = express.Router()
 
-router.post('/books', async (req, res, next) => {
+router.post('/books', ensureAuthenticated, async (req, res, next) => {
 	const data = req.body
 	try {
+		if (req.usuario.admin !== true) throw new Error('Unauthorized')
 		const newBook = await bookService.saveBook(data)
 		res.status(201).json(newBook)
 	} catch (e) {
@@ -35,6 +36,7 @@ router.get('/books/search/:titleOrAuthor', async (req, res, next) => {
 router.put('/books/:id', async (req, res, next) => {
 	const newData = req.body
 	try {
+		if (req.usuario.admin !== true) throw new Error('Unauthorized')
 		await bookService.putBook(req.params.id, newData)
 		res.status(200).end()
 	} catch (e) {
@@ -44,6 +46,7 @@ router.put('/books/:id', async (req, res, next) => {
 
 router.delete('/books/:id', async (req, res, next) => {
 	try {
+		if (req.usuario.admin !== true) throw new Error('Unauthorized')
 		await bookService.deleteBook(req.params.id)
 		res.status(200).end()
 	} catch (e) {
