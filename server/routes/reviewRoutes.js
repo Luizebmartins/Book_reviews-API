@@ -41,4 +41,12 @@ router.get('/reviews/:id/books', async (req, res, next) => {
 	}
 })
 
+router.delete('/reviews/:id', async (req, res, next) => {
+	try {
+		await reviewService.deleteReview(req.params.id)
+		res.status(200).end()
+	} catch (e) {
+		next(e)
+	}
+})
 module.exports = router

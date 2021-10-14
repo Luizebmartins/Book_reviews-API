@@ -15,3 +15,7 @@ module.exports.getUserReviews = function (id) {
 module.exports.getBookReviews = function (id) {
 	return review.findAll({ where: { id_user: id } }, { raw: true })
 }
+
+module.exports.deleteReview = function (id) {
+	return review.destroy({ where: { id } })
+}
