@@ -2,7 +2,7 @@ const reviewData = require('../data/reviewData')
 const userData = require('../data/userData')
 const bookData = require('../data/bookData')
 
-module.exports.saveReview = async function (data) {
+exports.saveReview = async function (data) {
 	const existingUser = await userData.getUser(data.id_user)
 	if (!existingUser) throw new Error('User not found')
 
@@ -11,15 +11,14 @@ module.exports.saveReview = async function (data) {
 
 	return reviewData.saveReview(data)
 }
-
-module.exports.getReview = async function (id) {
+exports.getReview = async function (id) {
 	const review = await reviewData.getReview(id)
 	if (!review) throw new Error('review not found')
 
 	return review
 }
 
-module.exports.getUserReviews = async function (id) {
+exports.getUserReviews = async function (id) {
 	const existingUser = await userData.getUser(id)
 	if (!existingUser) throw new Error('User not found')
 
@@ -29,7 +28,7 @@ module.exports.getUserReviews = async function (id) {
 	return userReviews
 }
 
-module.exports.getBookReviews = async function (id) {
+exports.getBookReviews = async function (id) {
 	const existingBook = await bookData.getBook(id)
 	if (!existingBook) throw new Error('Book not found')
 
@@ -39,14 +38,14 @@ module.exports.getBookReviews = async function (id) {
 	return bookReviews
 }
 
-module.exports.putReview = async function (id, newData) {
+exports.putReview = async function (id, newData) {
 	const existingReview = await reviewData.getReview(id)
 	if (!existingReview) throw new Error('Review not found')
 
 	return reviewData.putReview(id, newData)
 }
 
-module.exports.deleteReview = async function (id) {
+exports.deleteReview = async function (id) {
 	const existingReview = await reviewData.getReview(id)
 	if (!existingReview) throw new Error('Review not found')
 
