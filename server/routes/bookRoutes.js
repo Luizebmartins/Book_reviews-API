@@ -32,6 +32,16 @@ router.get('/books/search/:titleOrAuthor', async (req, res, next) => {
 	}
 })
 
+router.put('/books/:id', async (req, res, next) => {
+	const newData = req.body
+	try {
+		await bookService.putBook(req.params.id, newData)
+		res.status(200).end()
+	} catch (e) {
+		next(e)
+	}
+})
+
 router.delete('/books/:id', async (req, res, next) => {
 	try {
 		await bookService.deleteBook(req.params.id)

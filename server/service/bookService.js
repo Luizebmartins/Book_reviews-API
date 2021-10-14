@@ -52,6 +52,18 @@ exports.getBooks = async function (titleOrAuthor) {
 	return books
 }
 
+exports.putBook = async function (id, newData) {
+	const existingBook = await bookData.getBook(id)
+	if (!existingBook) throw new Error('Book not found')
+
+	if (Object.prototype.hasOwnProperty.call(newData, 'isbn')) {
+		const existingBookIsbn = await bookData.getBookByIsbn(newData.isbn)
+		if (existingBookIsbn) throw new Error('isbn already exist')
+	}
+
+	return bookData.putBook(id, newData)
+}
+
 exports.deleteBook = async function (id) {
 	const existingBook = await bookData.getBook(id)
 	if (!existingBook) throw new Error('Book not found')
