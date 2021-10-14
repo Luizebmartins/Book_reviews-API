@@ -42,3 +42,7 @@ exports.getBooks = async function (titleOrAuthor) {
 
 	return book.findAll({ where: { title: titleOrAuthor } })
 }
+
+exports.deleteBook = async function (id) {
+	return book.destroy({ where: { id } })
+}

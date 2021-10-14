@@ -19,5 +19,6 @@
         "indent": ["error", "tab"],
         "no-tabs": 0,
         "eqeqeq": "off"
+        
     }
 }

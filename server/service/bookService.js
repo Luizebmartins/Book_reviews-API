@@ -24,11 +24,37 @@ exports.saveBook = async function (dataNewBook) {
 exports.getBook = async function (id) {
 	const book = await bookData.getBook(id)
 	if (!book) throw new Error('Book not found')
+
+	const authorsMetaData = await authorData.getAuthor(book.id)
+
+	const authors = []
+	for (let i = 0; i < authorsMetaData.length; i += 1) {
+		authors.push(authorsMetaData[i].dataValues.name)
+	}
+	book.dataValues.authors = authors
 	return book
 }
 
 exports.getBooks = async function (titleOrAuthor) {
-	const book = await bookData.getBooks(titleOrAuthor)
-	if (!book.length) throw new Error('Book not found')
-	return book
+	const books = await bookData.getBooks(titleOrAuthor)
+	if (!books.length) throw new Error('Book not found')
+
+	for (let i = 0; i < books.length; i += 1) {
+		const authorsMetaData = await authorData.getAuthor(books[i].dataValues.id)
+
+		const authors = []
+		for (let j = 0; j < authorsMetaData.length; j += 1) {
+			authors.push(authorsMetaData[j].dataValues.name)
+		}
+		books[i].dataValues.authors = authors
+	}
+
+	return books
+}
+
+exports.deleteBook = async function (id) {
+	const existingBook = await bookData.getBook(id)
+	if (!existingBook) throw new Error('Book not found')
+
+	return bookData.deleteBook(id)
 }

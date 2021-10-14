@@ -32,4 +32,13 @@ router.get('/books/search/:titleOrAuthor', async (req, res, next) => {
 	}
 })
 
+router.delete('/books/:id', async (req, res, next) => {
+	try {
+		await bookService.deleteBook(req.params.id)
+		res.status(200).end()
+	} catch (e) {
+		next(e)
+	}
+})
+
 module.exports = router
