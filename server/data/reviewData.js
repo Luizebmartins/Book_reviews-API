@@ -11,3 +11,7 @@ module.exports.getReview = function (id) {
 module.exports.getUserReviews = function (id) {
 	return review.findAll({ where: { id_user: id } }, { raw: true })
 }
+
+module.exports.getBookReviews = function (id) {
+	return review.findAll({ where: { id_user: id } }, { raw: true })
+}

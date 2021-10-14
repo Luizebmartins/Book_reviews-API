@@ -25,8 +25,17 @@ router.get('/reviews/:id', async (req, res, next) => {
 
 router.get('/reviews/:id/users', async (req, res, next) => {
 	try {
-		const usersReviews = await reviewService.getUserReviews(req.params.id)
-		res.status(200).json(usersReviews)
+		const userReviews = await reviewService.getUserReviews(req.params.id)
+		res.status(200).json(userReviews)
+	} catch (e) {
+		next(e)
+	}
+})
+
+router.get('/reviews/:id/books', async (req, res, next) => {
+	try {
+		const bookReviews = await reviewService.getBookReviews(req.params.id)
+		res.status(200).json(bookReviews)
 	} catch (e) {
 		next(e)
 	}
