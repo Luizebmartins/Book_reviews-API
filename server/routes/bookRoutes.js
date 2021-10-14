@@ -33,7 +33,7 @@ router.get('/books/search/:titleOrAuthor', async (req, res, next) => {
 	}
 })
 
-router.put('/books/:id', async (req, res, next) => {
+router.put('/books/:id', ensureAuthenticated, async (req, res, next) => {
 	const newData = req.body
 	try {
 		if (req.usuario.admin !== true) throw new Error('Unauthorized')
@@ -44,7 +44,7 @@ router.put('/books/:id', async (req, res, next) => {
 	}
 })
 
-router.delete('/books/:id', async (req, res, next) => {
+router.delete('/books/:id', ensureAuthenticated, async (req, res, next) => {
 	try {
 		if (req.usuario.admin !== true) throw new Error('Unauthorized')
 		await bookService.deleteBook(req.params.id)
