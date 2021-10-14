@@ -39,6 +39,13 @@ module.exports.getBookReviews = async function (id) {
 	return bookReviews
 }
 
+module.exports.putReview = async function (id, newData) {
+	const existingReview = await reviewData.getReview(id)
+	if (!existingReview) throw new Error('Review not found')
+
+	return reviewData.putReview(id, newData)
+}
+
 module.exports.deleteReview = async function (id) {
 	const existingReview = await reviewData.getReview(id)
 	if (!existingReview) throw new Error('Review not found')

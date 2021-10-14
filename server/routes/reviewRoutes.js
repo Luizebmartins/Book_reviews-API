@@ -41,6 +41,16 @@ router.get('/reviews/:id/books', async (req, res, next) => {
 	}
 })
 
+router.put('/reviews/:id', async (req, res, next) => {
+	const newData = req.body
+	try {
+		await reviewService.putReview(req.params.id, newData)
+		res.status(200).end()
+	} catch (e) {
+		next(e)
+	}
+})
+
 router.delete('/reviews/:id', async (req, res, next) => {
 	try {
 		await reviewService.deleteReview(req.params.id)

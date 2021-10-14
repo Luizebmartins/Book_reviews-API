@@ -19,3 +19,7 @@ module.exports.getBookReviews = function (id) {
 module.exports.deleteReview = function (id) {
 	return review.destroy({ where: { id } })
 }
+
+module.exports.putReview = function (id, newData) {
+	return review.update(newData, { where: { id } })
+}
