@@ -13,7 +13,7 @@ exports.saveReview = async function (data) {
 }
 exports.getReview = async function (id) {
 	const review = await reviewData.getReview(id)
-	if (!review) throw new Error('review not found')
+	if (!review) throw new Error('Review not found')
 
 	return review
 }
@@ -38,16 +38,20 @@ exports.getBookReviews = async function (id) {
 	return bookReviews
 }
 
-exports.putReview = async function (id, newData) {
+exports.putReview = async function (id, idUser, newData) {
 	const existingReview = await reviewData.getReview(id)
 	if (!existingReview) throw new Error('Review not found')
+
+	if (existingReview.id_user !== idUser) throw new Error('Unauthorized')
 
 	return reviewData.putReview(id, newData)
 }
 
-exports.deleteReview = async function (id) {
+exports.deleteReview = async function (id, idUser) {
 	const existingReview = await reviewData.getReview(id)
 	if (!existingReview) throw new Error('Review not found')
+
+	if (existingReview.id_user !== idUser) throw new Error('Unauthorized')
 
 	return reviewData.deleteReview(id)
 }

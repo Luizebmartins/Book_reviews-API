@@ -1,10 +1,10 @@
 const express = require('express')
-// const ensureAuthenticated = require('../middlewares/ensureAuthenticated')
+const ensureAuthenticated = require('../middlewares/ensureAuthenticated')
 const reviewService = require('../service/reviewService')
 
 const router = express.Router()
 
-router.post('/reviews', async (req, res, next) => {
+router.post('/reviews', ensureAuthenticated, async (req, res, next) => {
 	const data = req.body
 	try {
 		const newReview = await reviewService.saveReview(data)
@@ -41,19 +41,19 @@ router.get('/reviews/:id/books', async (req, res, next) => {
 	}
 })
 
-router.put('/reviews/:id', async (req, res, next) => {
+router.put('/reviews/:id', ensureAuthenticated, async (req, res, next) => {
 	const newData = req.body
 	try {
-		await reviewService.putReview(req.params.id, newData)
+		await reviewService.putReview(req.params.id, req.usuario.id_user, newData)
 		res.status(200).end()
 	} catch (e) {
 		next(e)
 	}
 })
 
-router.delete('/reviews/:id', async (req, res, next) => {
+router.delete('/reviews/:id', ensureAuthenticated, async (req, res, next) => {
 	try {
-		await reviewService.deleteReview(req.params.id)
+		await reviewService.deleteReview(req.params.id, req.usuario.id_user)
 		res.status(200).end()
 	} catch (e) {
 		next(e)
