@@ -28,6 +28,12 @@ const user = connection.define('users', {
 }, {
 	tableName: 'users',
 	timestamps: false,
+	hooks: {
+		afterCreate: (record) => {
+			delete record.dataValues.password
+			delete record.dataValues.admin
+		},
+	},
 })
 
 user.sync()
