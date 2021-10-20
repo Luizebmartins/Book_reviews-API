@@ -29,6 +29,12 @@ exports.putUser = async function (id, newData) {
 		const existingUserEmail = await userData.getUserByEmail(newData.email)
 		if (existingUserEmail) throw new Error('Email already exist')
 	}
+
+	if (Object.prototype.hasOwnProperty.call(newData, 'password')) {
+		const passwordHash = await bcrypt.hash(newData.password, 8)
+		newData.password = passwordHash
+	}
+
 	return userData.putUser(id, newData)
 }
 
