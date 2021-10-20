@@ -1,7 +1,7 @@
-# Introduction
-A Lêbooks é uma API com o objetivo de facilitar a vida dos leitores de livros, seja descobrindo novos livros, ou até servindo como um lugar onde a pessoa conta como foi sua experiência com determinado livro. O ponto principal da aplicação está nas reviews, é possível que usuários escrevam reviews sobres os livros, dando suas opiniões e uma nota para eles, a partir disso outros usuários poderão ler tais resenhas, tendo a opção de curtir, ou descurtir. 
+# Introdução
+API com o objetivo de facilitar a vida dos leitores de livros, seja descobrindo novos livros, ou até servindo como um lugar onde a pessoa conta como foi sua experiência com determinado livro. O ponto principal da aplicação está nas reviews, é possível que usuários escrevam reviews sobres os livros, dando suas opiniões e uma nota para eles, a partir disso outros usuários poderão ler tais resenhas, tendo a opção de curtir, ou descurtir. 
 
-## Authentication
+## Autenticação das rotas
 Há rotas públicas e privadas
 
 ## Error Codes
