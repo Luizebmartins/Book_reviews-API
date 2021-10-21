@@ -25,11 +25,15 @@ Review não existe no banco.
 
 ** 404 - Reviews not found **
 Usuário ou livro não possuem reviews no banco.
-# 📁 Collection: Rotas de usuário 
+# Rotas de usuários
 
 
 ## End-point: Criação de usuário
-### Description: > Uma criação com sucesso retornará um status code *HTTP 201*
+### Descrição: cria um usuário.
+```
+Uma criação com sucesso retornará um status code *HTTP 201*
+```
+
 Method: POST
 >```
 >/users
@@ -49,7 +53,10 @@ Method: POST
 
 
 ## End-point: Busca de usuário
-### Description: > Uma busca bem sucedida retornará o status code *HTTP 200*
+### Descrição: buscar os dados do usuário logado.
+```
+Uma busca bem sucedida retornará o status code *HTTP 200*
+```
 Method: GET
 >```
 >/users/id
@@ -66,7 +73,10 @@ Method: GET
 
 
 ## End-point: Remoção de usuário
-### Description: > Uma remoção bem sucedida retornará o status code *HTTP 200*
+### Descrição: Remove a conta do usuário. Apenas o dono dela poderá fazer isso.
+```
+Uma remoção bem sucedida retornará o status code *HTTP 200*
+```
 Method: DELETE
 >```
 >/users/id
@@ -83,7 +93,10 @@ Method: DELETE
 
 
 ## End-point: Atualização de usuário
-### Description: > Uma atualização bem sucedida retornará o status code *HTTP 200*
+### Descrição: Atualiza os dados do usuário, apenas o dono poderá fazer isso. Não é necessário ter todos os atributos no body.
+```
+Uma atualização bem sucedida retornará o status code *HTTP 200*
+```
 Method: PUT
 >```
 >/users/id
@@ -110,7 +123,11 @@ Method: PUT
 
 
 ## End-point: login
-### Description: > Uma Login bem sucedido retornará o status code *HTTP 200*
+### Description: Eealiza o login e recebe o token de autenticação.
+```
+Um Login bem sucedido retornará o status code *HTTP 200*
+```
+
 Method: POST
 >```
 >/users/login
@@ -127,11 +144,14 @@ Method: POST
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
 
-# 📁 Collection: books 
+# Rotas de livros 
 
 
 ## End-point: Insere livro
-### Description: > Uma inserção bem sucedida retornará o status code *HTTP 201*
+### Descrição: Inseri um livro. Apenas o admin consegue fazer essa operação.
+```
+Uma inserção bem sucedida retornará o status code *HTTP 201*
+```
 Method: POST
 >```
 >/books
@@ -164,7 +184,10 @@ Method: POST
 
 
 ## End-point: Busca por título ou autor
-### Description: > Uma busca bem sucedida retornará o status code *HTTP 200*
+### Description: busca livros a partir do nome ou do autor que os escreveu.
+```
+Uma busca bem sucedida retornará o status code *HTTP 200*
+```
 Method: GET
 >```
 >/books/search/titleOrAuthor
@@ -174,7 +197,10 @@ Method: GET
 
 
 ## End-point: Busca por id
-### Description: > Uma busca bem sucedida retornará o status code *HTTP 200*
+### Descrição: Busca livro que possui o id passado como parâmetro.
+```
+Uma busca bem sucedida retornará o status code *HTTP 200*
+```
 Method: GET
 >```
 >/books/id
@@ -184,7 +210,10 @@ Method: GET
 
 
 ## End-point: Atualiza livro
-### Description: > Uma atualização bem sucedida retornará o status code *HTTP 200*
+### Descrição: Atualiza os dados do livro que possui o id passado como parâmetro. Apenas o admin consegue fazer essa operação.
+```
+Uma atualização bem sucedida retornará o status code *HTTP 200*
+```
 Method: PUT
 >```
 >/books/id
@@ -202,7 +231,10 @@ Method: PUT
 
 
 ## End-point: Remove livro
-### Description: > Uma remoção bem sucedida retornará o status code *HTTP 200*
+### Descrição: Remove o livro pelo seu id. Apenas o admin consegue fazer essa operação.
+```
+Uma remoção bem sucedida retornará o status code *HTTP 200*
+```
 Method: DELETE
 >```
 >/books/id
@@ -217,11 +249,14 @@ Method: DELETE
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
 
-# 📁 Collection: reviews 
+#rotas de reviews 
 
 
 ## End-point: Insere review
-### Description: > Uma inserção bem sucedida retornará o status code *HTTP 201*
+### Descrição: Insere uma review sobre um livro.
+```
+Uma inserção bem sucedida retornará o status code *HTTP 201*
+```
 Method: POST
 >```
 >/reviews
@@ -251,7 +286,10 @@ Method: POST
 
 
 ## End-point: Busca review por id
-### Description: > Uma busca bem sucedida retornará o status code *HTTP 200*
+### Descrição: Busca uma review a partir de seu id.
+```
+Uma busca bem sucedida retornará o status code *HTTP 200*
+```
 Method: GET
 >```
 >/reviews/id
@@ -261,7 +299,10 @@ Method: GET
 
 
 ## End-point: Busca reviews de um livro
-### Description: > Uma busca bem sucedida retornará o status code *HTTP 200*
+### Descripção: Busca todas as reviews relacionadas ao livro com o id passado como parâmetro.
+```
+Uma busca bem sucedida retornará o status code *HTTP 200*
+```
 Method: GET
 >```
 >/reviews/id/books
@@ -271,7 +312,10 @@ Method: GET
 
 
 ## End-point: Busca reviews de um usuário
-### Description: > Uma busca bem sucedida retornará o status code *HTTP 200*
+### Descrição: Busca todas as reviews relacionadas ao usuário com o id passado como parâmetro.
+```
+Uma busca bem sucedida retornará o status code *HTTP 200*
+```
 Method: GET
 >```
 >/reviews/id/users
@@ -281,7 +325,10 @@ Method: GET
 
 
 ## End-point: Atualiza review
-### Description: > Uma atualização bem sucedida retornará o status code *HTTP 200*
+### Descrição: Atualiza os dados da review que possui o id passado como parâmetro. Apenas o dono da review pode usar essa rota. Não é necessário passar todos os atributos.
+```
+Uma atualização bem sucedida retornará o status code *HTTP 200*
+```
 Method: PUT
 >```
 >/reviews/id
@@ -309,7 +356,10 @@ Method: PUT
 
 
 ## End-point: Remove review
-### Description: > Uma remoção bem sucedida retornará o status code *HTTP 200*
+### Descrição: Remove a review com o id passado como parâmetro.
+```
+Uma remoção bem sucedida retornará o status code *HTTP 200*
+```
 Method: DELETE
 >```
 >/reviews/id
