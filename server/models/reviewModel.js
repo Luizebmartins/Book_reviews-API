@@ -38,6 +38,10 @@ const review = connection.define('reviews', {
 		type: DataTypes.INTEGER,
 		allowNull: false,
 	},
+	id_user: {
+		type: DataTypes.INTEGER,
+		allowNull: false,
+	},
 }, {
 	tableName: 'reviews',
 	timestamps: false,

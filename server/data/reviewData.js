@@ -13,7 +13,7 @@ exports.getUserReviews = function (id) {
 }
 
 exports.getBookReviews = function (id) {
-	return review.findAll({ where: { id_user: id } }, { raw: true })
+	return review.findAll({ where: { id_book: id } }, { raw: true })
 }
 
 exports.deleteReview = function (id) {

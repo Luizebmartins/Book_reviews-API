@@ -32,7 +32,7 @@ exports.getBookReviews = async function (id) {
 	const existingBook = await bookData.getBook(id)
 	if (!existingBook) throw new Error('Book not found')
 
-	const bookReviews = await reviewData.getUserReviews(id)
+	const bookReviews = await reviewData.getBookReviews(id)
 	if (!bookReviews.length) throw new Error('Reviews not found')
 
 	return bookReviews
