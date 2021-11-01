@@ -7,6 +7,18 @@ CREATE TABLE users (
     admin boolean DEFAULT 'false'
 );
 
+CREATE TABLE books (
+    id serial PRIMARY KEY,
+    title text NOT NULL,
+    publisher varchar(255) NOT NULL,
+    published_Date date NOT NULL,
+    rating float NOT NULL,
+    page_count integer NOT NULL,
+    description text NOT NULL,
+    isbn text UNIQUE NOT NULL
+);
+
+
 CREATE TABLE reviews (
     id serial PRIMARY KEY,
     date timestamp default now(),
@@ -19,16 +31,6 @@ CREATE TABLE reviews (
     id_user integer REFERENCES users(id) ON DELETE CASCADE NOT NULL
 );
 
-CREATE TABLE books (
-    id serial PRIMARY KEY,
-    title text NOT NULL,
-    publisher varchar(255) NOT NULL,
-    published_Date date NOT NULL,
-    rating float NOT NULL,
-    page_count integer NOT NULL,
-    description text NOT NULL,
-    isbn text UNIQUE NOT NULL
-);
 
 CREATE TABLE authors (
     id serial PRIMARY KEY,
