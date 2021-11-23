@@ -4,6 +4,7 @@ const ensureAuthenticated = require('../middlewares/ensureAuthenticated')
 
 const router = express.Router()
 
+// Create user
 router.post('/users', async (req, res, next) => {
 	const data = req.body
 	try {
@@ -14,6 +15,7 @@ router.post('/users', async (req, res, next) => {
 	}
 })
 
+// Get user
 router.get('/users/:id', ensureAuthenticated, async (req, res, next) => {
 	try {
 		if (req.usuario.id_user != req.params.id) throw new Error('Unauthorized')
@@ -24,6 +26,7 @@ router.get('/users/:id', ensureAuthenticated, async (req, res, next) => {
 	}
 })
 
+// Update user
 router.put('/users/:id', ensureAuthenticated, async (req, res, next) => {
 	const newData = req.body
 	try {
@@ -35,6 +38,7 @@ router.put('/users/:id', ensureAuthenticated, async (req, res, next) => {
 	}
 })
 
+// Delete user
 router.delete('/users/:id', ensureAuthenticated, async (req, res, next) => {
 	try {
 		if (req.usuario.id_user != req.params.id) throw new Error('Unauthorized')
@@ -45,6 +49,7 @@ router.delete('/users/:id', ensureAuthenticated, async (req, res, next) => {
 	}
 })
 
+// User login
 router.post('/users/login', async (req, res, next) => {
 	const data = req.body
 	try {

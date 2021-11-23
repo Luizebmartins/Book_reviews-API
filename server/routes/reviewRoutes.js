@@ -4,6 +4,7 @@ const reviewService = require('../service/reviewService')
 
 const router = express.Router()
 
+// Create review
 router.post('/reviews', ensureAuthenticated, async (req, res, next) => {
 	const data = req.body
 	try {
@@ -14,6 +15,7 @@ router.post('/reviews', ensureAuthenticated, async (req, res, next) => {
 	}
 })
 
+// Get review
 router.get('/reviews/:id', async (req, res, next) => {
 	try {
 		const review = await reviewService.getReview(req.params.id)
@@ -23,6 +25,7 @@ router.get('/reviews/:id', async (req, res, next) => {
 	}
 })
 
+// Get all user reviews
 router.get('/reviews/:id/users', async (req, res, next) => {
 	try {
 		const userReviews = await reviewService.getUserReviews(req.params.id)
@@ -32,6 +35,7 @@ router.get('/reviews/:id/users', async (req, res, next) => {
 	}
 })
 
+// Get all book reviews
 router.get('/reviews/:id/books', async (req, res, next) => {
 	try {
 		const bookReviews = await reviewService.getBookReviews(req.params.id)
@@ -41,6 +45,7 @@ router.get('/reviews/:id/books', async (req, res, next) => {
 	}
 })
 
+// Update review
 router.put('/reviews/:id', ensureAuthenticated, async (req, res, next) => {
 	const newData = req.body
 	try {
@@ -51,6 +56,7 @@ router.put('/reviews/:id', ensureAuthenticated, async (req, res, next) => {
 	}
 })
 
+// Delete review
 router.delete('/reviews/:id', ensureAuthenticated, async (req, res, next) => {
 	try {
 		await reviewService.deleteReview(req.params.id, req.usuario.id_user)
