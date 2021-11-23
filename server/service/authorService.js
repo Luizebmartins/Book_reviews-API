@@ -1,5 +1,15 @@
 const authorData = require('../data/authorData')
 
+exports.saveAuthor = async function (data) {
+	const bookAuthors = await authorData.getAuthors(data.id_book)
+
+	bookAuthors.forEach((author) => {
+		if (author.name === data.name) throw new Error('Author already exist')
+	})
+
+	return authorData.saveAuthor(data.name, data.id_book)
+}
+
 exports.getAuthors = async function (idBook) {
 	const authors = await authorData.getAuthors(idBook)
 	if (!authors) throw new Error('Authors not found')

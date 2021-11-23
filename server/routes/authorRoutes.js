@@ -4,6 +4,18 @@ const authorService = require('../service/authorService')
 
 const router = express.Router()
 
+// Create author
+router.post('/authors', ensureAuthenticated, async (req, res, next) => {
+	const data = req.body
+	try {
+		if (req.usuario.admin !== true) throw new Error('Unauthorized')
+		const newbook = await authorService.saveAuthor(data)
+		res.status(200).json(newbook)
+	} catch (e) {
+		next(e)
+	}
+})
+
 // Get all book authors
 router.get('/authors/:id/books', async (req, res, next) => {
 	try {
