@@ -25,7 +25,7 @@ exports.getBook = async function (id) {
 	const book = await bookData.getBook(id)
 	if (!book) throw new Error('Book not found')
 
-	const authorsMetaData = await authorData.getAuthor(book.id)
+	const authorsMetaData = await authorData.getAuthors(book.id)
 
 	const authors = []
 	for (let i = 0; i < authorsMetaData.length; i += 1) {
@@ -40,7 +40,7 @@ exports.getBooks = async function (titleOrAuthor) {
 	if (!books.length) throw new Error('Book not found')
 
 	for (let i = 0; i < books.length; i += 1) {
-		const authorsMetaData = await authorData.getAuthor(books[i].dataValues.id)
+		const authorsMetaData = await authorData.getAuthors(books[i].dataValues.id)
 
 		const authors = []
 		for (let j = 0; j < authorsMetaData.length; j += 1) {
