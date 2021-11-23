@@ -15,3 +15,7 @@ exports.getAuthor = function (id) {
 exports.putAuthor = function (id, newData) {
 	return author.update(newData, { where: { id } })
 }
+
+exports.deleteAuthor = function (id) {
+	return author.destroy({ where: { id } })
+}

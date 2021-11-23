@@ -48,4 +48,15 @@ router.put('/authors/:id', ensureAuthenticated, async (req, res, next) => {
 	}
 })
 
+// Delete author
+router.delete('/authors/:id', ensureAuthenticated, async (req, res, next) => {
+	try {
+		if (req.usuario.admin !== true) throw new Error('Unauthorized')
+		await authorService.deleteAuthor(req.params.id)
+		res.status(200).end()
+	} catch (e) {
+		next(e)
+	}
+})
+
 module.exports = router

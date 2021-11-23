@@ -30,3 +30,10 @@ exports.putAuthor = async function (id, newData) {
 
 	return authorData.putAuthor(id, newData)
 }
+
+exports.deleteAuthor = async function (id) {
+	const existingBook = await authorData.getAuthor(id)
+	if (!existingBook) throw new Error('Author not found')
+
+	return authorData.deleteAuthor(id)
+}
