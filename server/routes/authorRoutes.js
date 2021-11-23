@@ -16,6 +16,16 @@ router.post('/authors', ensureAuthenticated, async (req, res, next) => {
 	}
 })
 
+// Get author
+router.get('/authors/:id', async (req, res, next) => {
+	try {
+		const book = await authorService.getAuthor(req.params.id)
+		res.status(200).json(book)
+	} catch (e) {
+		next(e)
+	}
+})
+
 // Get all book authors
 router.get('/authors/:id/books', async (req, res, next) => {
 	try {

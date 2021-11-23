@@ -10,6 +10,13 @@ exports.saveAuthor = async function (data) {
 	return authorData.saveAuthor(data.name, data.id_book)
 }
 
+exports.getAuthor = async function (idAuthor) {
+	const author = await authorData.getAuthor(idAuthor)
+	if (!author) throw new Error('Author not found')
+
+	return author
+}
+
 exports.getAuthors = async function (idBook) {
 	const authors = await authorData.getAuthors(idBook)
 	if (!authors) throw new Error('Authors not found')
